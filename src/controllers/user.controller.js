@@ -8,8 +8,6 @@ const userRegister = asyncHandlers( async (req,res)=>{
 
     // get user data from front-end
     const {userName,fullName,email,password} = req.body;
-    console.log(userName,fullName,email,password)
-
 
     //Validation
     if([userName,fullName,email,password].some((filed)=> filed.trim() === '')){
@@ -18,10 +16,11 @@ const userRegister = asyncHandlers( async (req,res)=>{
 
 
     // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
-    if(emailRegex.test(email)){
-        throw new ApiErrors(400, 'Invalid email format.')
-    }
+  
+    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
+    // if(emailRegex.test(email)){
+    //     throw new ApiErrors(400, 'Invalid email format.')
+    // }
 
 
     // Existed use ?
