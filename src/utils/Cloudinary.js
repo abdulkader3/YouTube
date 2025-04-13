@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config()
 import { v2 as cloudinary } from 'cloudinary';
 import fs from 'fs';
 
@@ -25,7 +27,8 @@ import fs from 'fs';
             
             
             //success
-            console.log("Upload success", response.url)
+            
+            fs.unlinkSync(localFilePath);
 
             return response;
             
