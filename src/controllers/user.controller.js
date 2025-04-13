@@ -34,10 +34,15 @@ const userRegister = asyncHandlers( async (req,res)=>{
 
     // check Image local path
     const avatarLocalPath = req.files?.avatar[0]?.path;
-    const coverImageLocalPath = req.files?.coverImage[0]?.path;
-    if(!avatarLocalPath){
+  if(!avatarLocalPath){
         throw new ApiErrors(400, 'avatar is required')
     }
+
+    let coverImageLocalPath;
+    if(req.files && Array.isArray(req.files.coverImage) && req.files.coverImage.length >0){
+        coverImageLocalPath = req.files.coverImage[0].path;
+    }
+  
 
     // Upload Image files in cloud
     const avatar = await UploadOnCloudinary(avatarLocalPath);
