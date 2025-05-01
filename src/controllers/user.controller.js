@@ -4,6 +4,7 @@ import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandlers } from "../utils/asyncHandlers.js";
 import { UploadOnCloudinary } from "../utils/Cloudinary.js";
 
+// user register
 const userRegister = asyncHandlers( async (req,res)=>{
 
     // get user data from front-end
@@ -15,15 +16,7 @@ const userRegister = asyncHandlers( async (req,res)=>{
     }
 
 
-    // Email validation
-  
-    // const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ ;
-    // if(emailRegex.test(email)){
-    //     throw new ApiErrors(400, 'Invalid email format.')
-    // }
-
-
-    // Existed use ?
+    // Existed user
     const existedUser = await User.findOne({
         $or: [{email}, {userName}]
     })
@@ -78,4 +71,6 @@ const userRegister = asyncHandlers( async (req,res)=>{
         new ApiResponse(200, userCreated, 'User registered successfully 😊')
     )
 } )
+
+
 export{userRegister}
