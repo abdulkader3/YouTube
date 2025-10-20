@@ -22,7 +22,6 @@ const userSchema = new mongoose.Schema({
     fullName: {
         type: String,
         required: true,
-        lowercase: true,
         time: true,
         index: true
     },
