@@ -6,8 +6,14 @@ This documentation is designed to help frontend developers understand and intera
 
 ### Base URL
 ```
-http://localhost:4000/api/v1
+http://localhost:9000/api/v1
 ```
+
+### Project Setup
+1. The backend uses Node.js with Express
+2. Database: MongoDB (Database name: YouTube)
+3. File Storage: Cloudinary for avatars, cover images, and video files
+4. Authentication: JWT (JSON Web Tokens) with refresh token mechanism
 
 ## 📝 API Endpoints
 
@@ -16,13 +22,15 @@ http://localhost:4000/api/v1
 #### 1. Register a New User
 - **Endpoint:** `POST /users/register`
 - **What it does:** Creates a new user account
-- **What you need to send:**
+- **What you need to send:** Form Data with:
   ```json
   {
     "username": "johndoe",
     "email": "john@example.com",
     "password": "securepassword",
-    "fullName": "John Doe"
+    "fullName": "John Doe",
+    "avatar": "Image File (optional)",
+    "coverImage": "Image File (optional)"
   }
   ```
 - **What you'll get back:**
@@ -35,7 +43,9 @@ http://localhost:4000/api/v1
         "_id": "user_id",
         "username": "johndoe",
         "email": "john@example.com",
-        "fullName": "John Doe"
+        "fullName": "John Doe",
+        "avatar": "avatar_url",
+        "coverImage": "cover_image_url"
       }
     }
   }
@@ -66,6 +76,71 @@ http://localhost:4000/api/v1
     }
   }
   ```
+
+#### 3. Get Current User Data
+- **Endpoint:** `POST /users/current-user-data`
+- **What it does:** Returns the current user's profile information
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What you'll get back:**
+  ```json
+  {
+    "success": true,
+    "data": {
+      "user": {
+        "_id": "user_id",
+        "username": "johndoe",
+        "email": "john@example.com",
+        "fullName": "John Doe",
+        "avatar": "avatar_url",
+        "coverImage": "cover_image_url"
+      }
+    }
+  }
+  ```
+
+#### 4. Change Password
+- **Endpoint:** `POST /users/change-password`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What you need to send:**
+  ```json
+  {
+    "oldPassword": "currentPassword",
+    "newPassword": "newSecurePassword"
+  }
+  ```
+
+#### 5. Change Account Details
+- **Endpoint:** `POST /users/change-details`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What you need to send:**
+  ```json
+  {
+    "fullName": "New Name",
+    "email": "newemail@example.com"
+  }
+  ```
+
+#### 6. Change Avatar
+- **Endpoint:** `POST /users/change-avatar`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What you need to send:** Form Data with:
+  - avatar: Image File
+
+#### 7. Change Cover Image
+- **Endpoint:** `POST /users/change-coverImage`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What you need to send:** Form Data with:
+  - coverImage: Image File
+
+#### 8. Refresh Access Token
+- **Endpoint:** `POST /users/refreshed-token`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What it does:** Issues a new access token using the refresh token
+
+#### 9. Logout
+- **Endpoint:** `POST /users/logout`
+- **Headers Required:** `Authorization: Bearer your_access_token`
+- **What it does:** Invalidates the current access token
 
 ### Video Management
 
@@ -194,11 +269,13 @@ If you encounter any issues:
 3. Make sure you're including the authorization token for protected routes
 4. Check the error message returned by the API
 
+
 ## 🚀 Next Steps
 
 1. Start by implementing user registration and login
 2. Once you have authentication working, try the video upload feature
 3. Implement the video listing and search functionality
 4. Add user profile features
+5. You can also contact me. I'm the backend developer who built this project. My Contact 01970713237
 
 Remember: Always test your API calls in a tool like Postman before implementing them in your frontend code!
